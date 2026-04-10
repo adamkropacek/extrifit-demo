@@ -1,919 +1,370 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EXTRIFIT GYM Pardubice — Největší fitness v Pardubicích</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --orange: #f25820;
-      --orange-dark: #d44a18;
-      --orange-glow: rgba(242,88,32,0.12);
-      --dark: #060709;
-      --dark-2: #0B0D12;
-      --dark-3: #10131A;
-      --dark-4: #151820;
-      --dark-5: #1A1E28;
-      --light: #E8ECF5;
-      --muted: #6B7280;
-      --muted-2: #9CA3AF;
-    }
-    * { -webkit-font-smoothing: antialiased; }
-    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--light); overflow-x: hidden; }
-    h1,h2,h3,.cond { font-family: 'Barlow Condensed', sans-serif; }
-    html { scroll-behavior: smooth; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTRIFIT GYM Pardubice — Největší fitness v Pardubicích</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400;1,700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --or:#f25820;--or2:#FF7048;--black:#060709;--dark1:#0B0D12;--dark2:#10131A;
+  --light:#E8ECF5;--light2:#B0B8C8;--muted:#58606E;--muted2:#3A404C;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lato',sans-serif;font-weight:300;background:var(--black);color:var(--light);overflow-x:hidden}
+#progress{position:fixed;top:0;left:0;height:2px;background:var(--or);z-index:9999;width:0;transition:width .08s linear;pointer-events:none}
+#loader{position:fixed;inset:0;background:var(--black);z-index:9998;display:flex;align-items:center;justify-content:center;transition:opacity .9s ease .4s}
+#loader.hide{opacity:0;pointer-events:none}
+.lw{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;letter-spacing:.55em;text-transform:uppercase;color:var(--or);animation:lp 1.2s ease infinite alternate}
+@keyframes lp{from{opacity:.2}to{opacity:1}}
 
-    /* Navbar */
-    .navbar {
-      background: rgba(6,7,9,0.94);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.8rem 3rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;transition:padding .4s,background .4s}
+nav.compact{padding:1rem 3rem;background:rgba(6,7,9,.93);backdrop-filter:blur(18px);border-bottom:1px solid rgba(242,88,32,.1)}
+.nl,.nr{display:flex;gap:2.5rem;list-style:none}
+.nr{justify-content:flex-end}
+.nl a,.nr a{font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.nl a:hover,.nr a:hover{color:var(--light)}
+.nlogo{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;letter-spacing:.35em;text-transform:uppercase;color:var(--light);font-weight:900}
+.nlogo span{color:var(--or)}
+.nbtn{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);border:1px solid rgba(242,88,32,.4);padding:.45rem 1.2rem;background:none;cursor:pointer;font-family:'Lato',sans-serif;transition:all .3s}
+.nbtn:hover{background:var(--or);color:var(--black);border-color:var(--or)}
 
-    /* Hero */
-    .hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-image: url('https://extrifit-gym.cz/pardubice/wp-content/uploads/revslider/hlavni-slider/pozadi-slider.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        105deg,
-        rgba(6,7,9,0.92) 0%,
-        rgba(6,7,9,0.85) 45%,
-        rgba(6,7,9,0.5) 100%
-      );
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 50px 50px;
-    }
-    .hero-right {
-      position: absolute; right: 0; top: 0; bottom: 0;
-      width: 42%;
-      background: linear-gradient(160deg, var(--dark-3) 0%, var(--dark-4) 100%);
-      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 50px 40px 80px;
-    }
-    .hero-info-card {
-      background: rgba(242,88,32,0.05);
-      border: 1px solid rgba(242,88,32,0.12);
-      border-radius: 16px;
-      padding: 28px;
-      width: 100%;
-    }
+.px{will-change:transform;transform:translate3d(0,0,0) scale(1.2)}
+.scene{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 20%,rgba(6,7,9,.6) 85%)}
+.ov-b{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,7,9,.3) 0%,rgba(6,7,9,.05) 35%,rgba(6,7,9,.6) 70%,rgba(6,7,9,.97) 100%)}
+.ov-l{position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,7,9,.95) 0%,rgba(6,7,9,.6) 45%,transparent 100%)}
 
-    /* Buttons */
-    .btn-green {
-      background: var(--orange);
-      color: var(--dark);
-      font-weight: 700;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.06em;
-      transition: all 0.2s;
-      text-transform: uppercase;
-    }
-    .btn-green:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(242,88,32,0.3); }
-    .btn-outline {
-      border: 1px solid rgba(255,255,255,0.14);
-      color: var(--light);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 15px;
-      letter-spacing: 0.06em;
-      transition: all 0.2s;
-      text-transform: uppercase;
-    }
-    .btn-outline:hover { border-color: rgba(22,201,80,0.5); color: var(--orange); }
+.scene-content{position:relative;z-index:2;text-align:center;padding:0 2rem}
+.eyebrow{font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;color:var(--or);display:block;margin-bottom:1.8rem}
+.big-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(5rem,15vw,14rem);font-weight:900;line-height:.86;color:var(--light);text-transform:uppercase;letter-spacing:.02em}
+.big-title em{font-style:italic;color:var(--or)}
+.mid-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.8rem,7vw,7rem);font-weight:700;line-height:.95;color:var(--light);text-transform:uppercase}
+.mid-title em{font-style:italic;color:var(--or)}
+.sm-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4.5vw,4.5rem);font-weight:700;text-transform:uppercase;color:var(--light);line-height:1}
+.sm-title em{font-style:italic;color:var(--or)}
+.hero-rule{width:2px;height:60px;background:linear-gradient(to bottom,var(--or),transparent);margin:2rem auto 0}
 
-    /* Section label */
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--orange);
-      font-weight: 700;
-    }
+.dark-scene{background:var(--black);min-height:80vh;display:flex;align-items:center;justify-content:center;padding:6rem 2rem}
+.dark-scene.alt{background:var(--dark1)}
+.manifesto-q{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-size:clamp(2rem,5.5vw,5rem);font-weight:300;line-height:1.1;color:var(--light2);max-width:900px;text-align:center}
+.manifesto-q strong{font-style:normal;font-weight:900;color:var(--light)}
 
-    /* Feature card */
-    .feat-card {
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.3s;
-    }
-    .feat-card:hover {
-      border-color: rgba(242,88,32,0.2);
-      background: var(--dark-4);
-      transform: translateY(-3px);
-    }
+.story-scene{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center}
+.story-ov{position:absolute;inset:0;background:linear-gradient(95deg,rgba(6,7,9,.95) 0%,rgba(6,7,9,.7) 50%,rgba(6,7,9,.1) 100%)}
+.story-text{position:relative;z-index:2;padding:8rem 8vw;max-width:600px}
+.body-text{font-size:.92rem;color:var(--muted);line-height:2;font-weight:300;max-width:440px}
+.or-line{border-left:2px solid var(--or);padding-left:1.5rem;margin:2rem 0}
+.or-line p{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-style:italic;font-weight:300;color:var(--light2);line-height:1.45}
+.stat-row{display:flex;gap:0;margin-top:3.5rem;border-top:1px solid rgba(242,88,32,.15);border-left:1px solid rgba(242,88,32,.15)}
+.stat{padding:1.5rem 2rem;border-right:1px solid rgba(242,88,32,.15);border-bottom:1px solid rgba(242,88,32,.15);text-align:center;flex:1}
+.stat-n{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--or);display:block;line-height:1}
+.stat-l{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
 
-    /* Trainer card */
-    .trainer-card {
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: all 0.3s;
-    }
-    .trainer-card:hover {
-      border-color: rgba(242,88,32,0.25);
-      background: var(--dark-4);
-    }
-    .trainer-avatar {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(242,88,32,0.2), rgba(242,88,32,0.05));
-      border: 1px solid rgba(242,88,32,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 20px; font-weight: 800;
-      color: var(--orange);
-      flex-shrink: 0;
-    }
+.food-scene{position:relative;min-height:90vh;overflow:hidden;display:flex;align-items:flex-end}
+.food-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,7,9,.95) 0%,rgba(6,7,9,.2) 55%,rgba(6,7,9,.05) 80%)}
+.food-text{position:relative;z-index:2;padding:4rem 8vw 7rem;width:100%;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:2rem}
+.food-caption{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,6vw,5.5rem);font-weight:700;font-style:italic;color:var(--light);line-height:1.05;text-transform:uppercase;max-width:580px}
+.food-aside{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right}
+.food-aside span{display:block;color:var(--or);margin-top:.3rem}
 
-    /* Pricing toggle */
-    .price-toggle {
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
-      padding: 4px;
-      display: inline-flex;
-    }
-    .toggle-btn {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 8px 20px;
-      border-radius: 7px;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--muted-2);
-      border: none; background: transparent;
-    }
-    .toggle-btn.active { background: var(--orange); color: var(--dark); font-weight: 700; }
+.feats-section{background:var(--dark1);padding:8rem 2rem}
+.section-top{text-align:center;margin-bottom:5rem}
+.section-eyebrow{font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--or);display:block;margin-bottom:1.5rem}
+.feat-list{max-width:800px;margin:0 auto}
+.feat-entry{display:flex;gap:2rem;align-items:baseline;padding:2rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.fe-l{flex:1}
+.fe-num{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;color:var(--muted2);display:block;margin-bottom:.4rem}
+.fe-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:700;text-transform:uppercase;color:var(--light);margin-bottom:.3rem;letter-spacing:.03em}
+.fe-desc{font-size:.8rem;color:var(--muted);font-style:italic;line-height:1.7}
+.fe-dots{flex:1;border-bottom:1px dotted rgba(242,88,32,.18);position:relative;top:-.35rem;min-width:30px}
+.fe-val{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:var(--or2);white-space:nowrap;font-weight:400}
 
-    /* Pricing table row */
-    .price-row {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.15s;
-    }
-    .price-row:last-child { border-bottom: none; }
-    .price-row:hover { background: rgba(242,88,32,0.03); }
-    .price-row.header { background: rgba(242,88,32,0.06); border-radius: 10px 10px 0 0; }
+/* PRICING */
+.pricing-section{background:var(--dark2);padding:8rem 2rem}
+.price-tabs{display:flex;justify-content:center;gap:3rem;margin-bottom:4rem;position:relative}
+.price-tabs::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:260px;height:1px;background:rgba(242,88,32,.15)}
+.ptab{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted2);cursor:pointer;background:none;border:none;font-family:'Lato',sans-serif;padding-bottom:1.2rem;position:relative;transition:color .3s}
+.ptab::after{content:'';position:absolute;bottom:-1px;left:50%;right:50%;height:1px;background:var(--or);transition:left .3s,right .3s}
+.ptab.active{color:var(--light)}.ptab.active::after{left:0;right:0}.ptab:hover{color:var(--light2)}
+.ppanel{display:none}.ppanel.active{display:block}
+.price-list{max-width:700px;margin:0 auto}
+.pe{display:flex;gap:1.5rem;align-items:baseline;padding:1.8rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.pe-l{flex:1}
+.pe-name{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;text-transform:uppercase;color:var(--light);margin-bottom:.3rem}
+.pe-desc{font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.6}
+.pe-dots{flex:1;border-bottom:1px dotted rgba(242,88,32,.15);position:relative;top:-.35rem;min-width:20px}
+.pe-price{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;color:var(--or2);white-space:nowrap}
 
-    /* Payment badges */
-    .pay-badge {
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted-2);
-      display: flex; align-items: center; gap: 6px;
-    }
+.gscene{display:grid;grid-template-columns:1fr 1fr;height:65vh;min-height:380px}
+.gscene.three{grid-template-columns:1fr 1fr 1fr}
+.gphoto{overflow:hidden}
+.gphoto img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease;filter:brightness(.85)}
+.gphoto:hover img{transform:scale(1.04);filter:brightness(1)}
+.gtext{background:var(--dark2);display:flex;flex-direction:column;justify-content:center;padding:5rem 6vw}
 
-    /* Contact form */
-    .res-input {
-      background: var(--dark-3);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--light);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      width: 100%;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .res-input:focus { border-color: rgba(242,88,32,0.45); }
-    .res-input::placeholder { color: #2E3340; }
-    .res-input option { background: var(--dark-3); }
+.contact-scene{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center}
+.contact-ov{position:absolute;inset:0;background:rgba(6,7,9,.9)}
+.contact-inner{position:relative;z-index:2;width:100%;max-width:1100px;margin:0 auto;padding:8rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start}
+.cinfo-sub{font-size:.88rem;color:var(--muted);line-height:2;margin-bottom:3.5rem;max-width:380px}
+.clist{list-style:none}
+.clist li{padding:1.4rem 0;border-bottom:1px solid rgba(242,88,32,.1);display:flex;gap:2rem;align-items:flex-start}
+.clist li:first-child{border-top:1px solid rgba(242,88,32,.1)}
+.clbl{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);min-width:65px;padding-top:.15rem}
+.cval{font-size:.88rem;color:var(--light2);line-height:1.8}
+.feyebrow{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--or);display:block;margin-bottom:2.5rem}
+.frow{margin-bottom:2rem}
+.frow label{display:block;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-bottom:.65rem}
+.frow input,.frow select,.frow textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(242,88,32,.2);color:var(--light);padding:.6rem 0;font-size:.9rem;font-family:'Lato',sans-serif;font-weight:300;outline:none;transition:border-color .3s;appearance:none;border-radius:0}
+.frow input:focus,.frow select:focus,.frow textarea:focus{border-bottom-color:var(--or)}
+.frow textarea{resize:none;height:68px}
+.frow select option{background:#0b0d12}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.fsbtn{background:none;border:none;color:var(--light);font-family:'Lato',sans-serif;font-size:.67rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:1rem;margin-top:.8rem;padding:0;transition:color .3s}
+.fsbtn::after{content:'';display:block;width:40px;height:1px;background:currentColor;transition:width .3s}
+.fsbtn:hover{color:var(--or)}.fsbtn:hover::after{width:68px}
+.fok{display:none;padding:2.5rem 0}
+.fok-mark{font-family:'Barlow Condensed',sans-serif;font-size:3rem;color:var(--or);display:block;margin-bottom:1rem;font-weight:700}
+.fok h3{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:700;text-transform:uppercase;color:var(--light);margin-bottom:.5rem}
+.fok p{font-size:.85rem;color:var(--muted);line-height:1.8}
 
-    /* Stats */
-    .stat-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      color: var(--orange);
-      line-height: 1;
-    }
+footer{background:var(--black);border-top:1px solid rgba(242,88,32,.08);padding:3rem 3rem}
+.footer-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.fbrand{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--light);font-weight:900}
+.fbrand span{color:var(--or)}
+.fbrand-sub{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--or);margin-top:.2rem}
+.fcenter{font-size:.75rem;color:var(--muted);text-align:center;line-height:1.9}
+.fcenter a{color:var(--muted);text-decoration:none}
+.fsocials{display:flex;gap:2rem}
+.fsocials a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);text-decoration:none;transition:color .3s}
+.fsocials a:hover{color:var(--or)}
 
-    /* Open badge */
-    .open-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(242,88,32,0.08);
-      border: 1px solid rgba(242,88,32,0.2);
-      color: var(--orange);
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      letter-spacing: 0.08em;
-    }
-    .open-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.sr{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.sr.d1{transition-delay:.1s}.sr.d2{transition-delay:.25s}.sr.d3{transition-delay:.4s}
+.sr.in{opacity:1;transform:translateY(0)}
+.cta-link{display:inline-flex;align-items:center;gap:1rem;margin-top:2.5rem;font-size:.67rem;letter-spacing:.22em;text-transform:uppercase;color:var(--light2);text-decoration:none;background:none;border:none;font-family:'Lato',sans-serif;cursor:pointer;transition:color .3s}
+.cta-link::after{content:'';display:block;width:36px;height:1px;background:currentColor;transition:width .3s}
+.cta-link:hover{color:var(--or)}.cta-link:hover::after{width:60px}
 
-    /* Hours */
-    .hours-row { border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .hours-row:last-child { border-bottom: none; }
-
-
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.6s ease forwards; }
-    .d1 { animation-delay: 0.1s; opacity: 0; }
-    .d2 { animation-delay: 0.25s; opacity: 0; }
-    .d3 { animation-delay: 0.4s; opacity: 0; }
-    .d4 { animation-delay: 0.55s; opacity: 0; }
-
-    @media (max-width: 768px) {
-      .hero-right { display: none; }
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--dark); }
-    ::-webkit-scrollbar-thumb { background: rgba(242,88,32,0.3); border-radius: 2px; }
-  </style>
+@media(max-width:900px){
+  nav{grid-template-columns:1fr auto;padding:1.5rem}.nl,.nr{display:none}
+  .gscene,.gscene.three{grid-template-columns:1fr;height:auto}
+  .gphoto{height:55vw;min-height:240px}.gtext{padding:3rem 2rem}
+  .story-text{padding:5rem 2rem}.food-text{padding:2rem 2rem 5rem}
+  .contact-inner{grid-template-columns:1fr;gap:3rem;padding:4rem 2rem}
+  .fg2{grid-template-columns:1fr;gap:0}.stat-row{flex-wrap:wrap}
+  .footer-in{flex-direction:column;align-items:flex-start}
+  .price-tabs{gap:1.5rem}
+}
+</style>
 </head>
 <body>
+<div id="progress"></div>
+<div id="loader"><span class="lw">Extrifit</span></div>
 
-  <!-- NAVBAR -->
-  <nav class="navbar fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="cond font-black text-xl tracking-tight">
-          <span style="color:var(--orange)">EXTRIFIT</span>
-          <span style="color:var(--light)"> GYM</span>
+<nav id="nav">
+  <ul class="nl"><li><a href="#o-gymu">O gymu</a></li><li><a href="#vybaveni">Vybavení</a></li></ul>
+  <div class="nlogo">Extrifit <span>GYM</span></div>
+  <ul class="nr"><li><a href="#cenik">Ceník</a></li><li><button class="nbtn" onclick="s('kontakt')">Kontakt</button></li></ul>
+</nav>
+
+<!-- 1. HERO -->
+<section class="scene" id="uvod">
+  <div class="bg px" style="background-image:url('https://extrifit-gym.cz/pardubice/wp-content/uploads/revslider/hlavni-slider/pozadi-slider.jpg')"></div>
+  <div class="vignette"></div>
+  <div class="ov-b"></div>
+  <div class="scene-content" id="heroC" style="opacity:0;transform:translateY(22px);transition:opacity 1.3s ease .7s,transform 1.3s ease .7s">
+    <span class="eyebrow">Pardubice · Největší fitness centrum</span>
+    <h1 class="big-title">Extrifit<br><em>GYM</em></h1>
+    <div class="hero-rule"></div>
+  </div>
+</section>
+
+<!-- 2. MANIFESTO -->
+<div class="dark-scene">
+  <div class="manifesto-q sr">
+    <strong>Pardubice cvičí jinak.</strong><br>
+    Největší fitness centrum v Pardubicích —<br>
+    <em style="color:var(--muted)">profesionální vybavení, zkušení trenéři, výsledky.</em>
+  </div>
+</div>
+
+<!-- 3. STORY SCENE -->
+<section class="story-scene" id="o-gymu">
+  <div class="bg px" style="background-image:url('https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/fitness-podebradska.jpg');position:absolute;inset:0;background-size:cover;background-position:center"></div>
+  <div class="story-ov"></div>
+  <div class="story-text">
+    <span class="eyebrow sr">O gymu</span>
+    <h2 class="sm-title sr d1" style="font-size:clamp(2.2rem,5vw,4.5rem);margin-bottom:2rem">Fitness<br><em>na nejvyšší úrovni</em></h2>
+    <p class="body-text sr d2">EXTRIFIT GYM Pardubice je největší fitness centrum v Pardubicích. Nabízíme profesionální zázemí, klimatizované prostory a certifikované trenéry.</p>
+    <div class="or-line sr d2">
+      <p>HOIST stroje, velká kardio zóna, legendární 90letý strom — Pardubice poznají rozdíl.</p>
+    </div>
+    <div class="stat-row sr d3">
+      <div class="stat"><span class="stat-n">90</span><span class="stat-l">Let historii</span></div>
+      <div class="stat"><span class="stat-n">10</span><span class="stat-l">Trenérů</span></div>
+      <div class="stat"><span class="stat-n">HOIST</span><span class="stat-l">Vybavení</span></div>
+      <div class="stat"><span class="stat-n">Klima</span><span class="stat-l">Celý rok</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PHOTO MOMENT -->
+<section class="food-scene">
+  <div class="bg px" style="background-image:url('https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/prodej-doplnku-extrifit-2.jpg')"></div>
+  <div class="food-ov"></div>
+  <div class="food-text">
+    <p class="food-caption">Doplňky stravy<br>přímo v gymu</p>
+    <div class="food-aside">Extrifit brand<br>+ TOP značky<br><span>Vždy skladem</span></div>
+  </div>
+</section>
+
+<!-- 5. FEATURES -->
+<section class="feats-section" id="vybaveni">
+  <div class="section-top sr">
+    <span class="section-eyebrow">Vybavení &amp; Služby</span>
+    <h2 class="mid-title" style="font-size:clamp(2.2rem,5vw,5rem)">Co tě<br><em>čeká</em></h2>
+  </div>
+  <div class="feat-list">
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">01</span><div class="fe-name">Klimatizace</div><div class="fe-desc">Celý gym klimatizovaný · příjemné cvičení i v letních měsících</div></div><div class="fe-dots"></div><div class="fe-val">Celý rok</div></div>
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">02</span><div class="fe-name">Kardio zóna</div><div class="fe-desc">Kompletní vybavení · běžecké pásy, kola, veslařské trenažéry</div></div><div class="fe-dots"></div><div class="fe-val">Velká zóna</div></div>
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">03</span><div class="fe-name">HOIST Stroje</div><div class="fe-desc">Prémiové americké stroje pro každou svalovou skupinu</div></div><div class="fe-dots"></div><div class="fe-val">Arsenal Strength</div></div>
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">04</span><div class="fe-name">Osobní trenéři</div><div class="fe-desc">10 certifikovaných trenérů · individuální i skupinový trénink</div></div><div class="fe-dots"></div><div class="fe-val">10 trenérů</div></div>
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">05</span><div class="fe-name">Doplňky &amp; Bar</div><div class="fe-desc">Prodej doplňků stravy přímo v gymu · protein, kreatin, pre-workout</div></div><div class="fe-dots"></div><div class="fe-val">Extrifit brand</div></div>
+    <div class="feat-entry"><div class="fe-l"><span class="fe-num">06</span><div class="fe-name">Platební benefity</div><div class="fe-desc">MultiSport · Sodexo · Benefit Plus · FKSP · Gallery BETA</div></div><div class="fe-dots"></div><div class="fe-val">Přijímáme</div></div>
+  </div>
+</section>
+
+<!-- 6. PRICING -->
+<section class="pricing-section" id="cenik">
+  <div class="section-top sr">
+    <span class="section-eyebrow">Ceník</span>
+    <h2 class="mid-title" style="font-size:clamp(2.2rem,5vw,4.5rem)">Vstupné<br><em>&amp; permanentky</em></h2>
+  </div>
+  <div class="price-tabs">
+    <button class="ptab active" onclick="ptab('std',this)">Standardní</button>
+    <button class="ptab" onclick="ptab('dis',this)">Zvýhodněné</button>
+  </div>
+  <div class="ppanel active" id="pp-std">
+    <div class="price-list">
+      <div class="pe"><div class="pe-l"><div class="pe-name">Jednorázový vstup</div><div class="pe-desc">Bez omezení doby · přístup ke všemu vybavení</div></div><div class="pe-dots"></div><div class="pe-price">130 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Permanentka 10 vstupů</div><div class="pe-desc">Platnost 3 měsíce</div></div><div class="pe-dots"></div><div class="pe-price">1 100 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Permanentka 30 vstupů</div><div class="pe-desc">Platnost 6 měsíců</div></div><div class="pe-dots"></div><div class="pe-price">2 800 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Měsíční permanentka</div><div class="pe-desc">Neomezený přístup po dobu 1 měsíce</div></div><div class="pe-dots"></div><div class="pe-price">900 Kč</div></div>
+    </div>
+  </div>
+  <div class="ppanel" id="pp-dis">
+    <div class="price-list">
+      <div class="pe"><div class="pe-l"><div class="pe-name">Jednorázový vstup</div><div class="pe-desc">Studenti, důchodci, ZTP</div></div><div class="pe-dots"></div><div class="pe-price">100 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Permanentka 10 vstupů</div><div class="pe-desc">Zvýhodněná · platnost 3 měsíce</div></div><div class="pe-dots"></div><div class="pe-price">850 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Permanentka 30 vstupů</div><div class="pe-desc">Zvýhodněná · platnost 6 měsíců</div></div><div class="pe-dots"></div><div class="pe-price">2 200 Kč</div></div>
+      <div class="pe"><div class="pe-l"><div class="pe-name">Měsíční permanentka</div><div class="pe-desc">Zvýhodněná · neomezený přístup</div></div><div class="pe-dots"></div><div class="pe-price">750 Kč</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. GALLERY -->
+<div id="galerie">
+  <div class="gscene">
+    <div class="gphoto"><img src="https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/fitness-podebradska.jpg" alt="Gym" loading="lazy"></div>
+    <div class="gtext">
+      <span class="eyebrow sr" style="text-align:left">Otevírací doba</span>
+      <h2 class="sm-title sr d1">Ráno i večer.<br><em>Vždy otevřeno.</em></h2>
+      <p class="body-text sr d2" style="margin-top:1.5rem">
+        Po–Pá &nbsp; 06:00 – 22:00<br>
+        So–Ne &nbsp; 07:00 – 22:00<br><br>
+        <span style="color:var(--muted2);font-size:.82rem">Svátky dle aktuálního harmonogramu.</span>
+      </p>
+      <button class="cta-link sr d3" onclick="s('kontakt')">Více informací</button>
+    </div>
+  </div>
+</div>
+
+<!-- 8. CONTACT -->
+<section class="contact-scene" id="kontakt">
+  <div class="bg px" style="background-image:url('https://extrifit-gym.cz/pardubice/wp-content/uploads/revslider/hlavni-slider/pozadi-slider.jpg')"></div>
+  <div class="contact-ov"></div>
+  <div class="contact-inner">
+    <div class="sr">
+      <span class="eyebrow" style="text-align:left">Kontakt &amp; Adresa</span>
+      <h2 class="sm-title" style="margin-bottom:1.5rem">Přijď<br><em>trénovat</em></h2>
+      <p class="cinfo-sub">Máte otázky k ceníku, permanentkám nebo osobnímu tréninku? Napište nebo zavolejte.</p>
+      <ul class="clist">
+        <li><span class="clbl">Adresa</span><span class="cval">Fitness Poděbradská<br>Pardubice</span></li>
+        <li><span class="clbl">Hodiny</span><span class="cval">Po–Pá 06:00–22:00<br>So–Ne 07:00–22:00</span></li>
+        <li><span class="clbl">Web</span><span class="cval">extrifit-gym.cz/pardubice</span></li>
+        <li><span class="clbl">Benefit</span><span class="cval">MultiSport · Sodexo · Benefit+<br>FKSP · Gallery BETA</span></li>
+      </ul>
+    </div>
+    <div class="sr d1">
+      <span class="feyebrow">Napište nám</span>
+      <div id="resF">
+        <div class="fg2">
+          <div class="frow"><label>Jméno *</label><input type="text" id="rN" placeholder="Jan Novák"></div>
+          <div class="frow"><label>E-mail *</label><input type="email" id="rE" placeholder="jan@email.cz"></div>
         </div>
-        <span class="hidden sm:block text-xs tracking-widest uppercase" style="color:var(--muted); border-left:1px solid rgba(255,255,255,0.08); padding-left:12px">Pardubice</span>
-      </a>
-      <div class="hidden lg:flex items-center gap-6 text-xs tracking-wider uppercase" style="color:var(--muted-2)">
-        <a href="#o-gymu" class="hover:text-white transition-colors">O gymu</a>
-        <a href="#treneri" class="hover:text-white transition-colors">Trenéři</a>
-        <a href="#cenik" class="hover:text-white transition-colors">Ceník</a>
-        <a href="#doplnky" class="hover:text-white transition-colors">Doplňky</a>
-        <a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a>
+        <div class="frow"><label>Zájem o *</label>
+          <select id="rA"><option value="">— vyberte —</option><option>Permanentka</option><option>Osobní trenér</option><option>Skupinový trénink</option><option>MultiSport / benefity</option><option>Jiné</option></select>
+        </div>
+        <div class="frow"><label>Zpráva</label><textarea id="rNote" placeholder="Vaše dotaz nebo zpráva…"></textarea></div>
+        <button class="fsbtn" onclick="submitRes()">Odeslat zprávu</button>
       </div>
-      <div class="flex items-center gap-3">
-        <a href="tel:+420733190696" class="hidden md:flex items-center gap-2 text-xs" style="color:var(--muted-2)">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25 1.12.37 2.32.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.1.35.02.74-.26 1.02z"/></svg>
-          +420 733 190 696
-        </a>
-        <a href="#cenik" class="btn-green px-5 py-2.5 rounded-lg">Ceník →</a>
+      <div class="fok" id="resOk">
+        <span class="fok-mark">✓</span>
+        <h3>Zpráva odeslána</h3>
+        <p>Odpovíme co nejdříve. Přijďte nás navštívit!</p>
       </div>
     </div>
-  </nav>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero" id="uvod">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-right">
-      <div class="hero-info-card">
-        <div class="text-xs tracking-widest uppercase mb-5" style="color:var(--orange); font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.18em">Otevírací doba</div>
-        <div style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:14px; margin-bottom:14px">
-          <div class="text-xs mb-1" style="color:var(--muted)">Pondělí – Pátek</div>
-          <div style="font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; color:var(--light)">6:00 – 22:00</div>
-        </div>
-        <div style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:14px; margin-bottom:20px">
-          <div class="text-xs mb-1" style="color:var(--muted)">Sobota – Neděle</div>
-          <div style="font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; color:var(--light)">7:00 – 22:00</div>
-        </div>
-        <div class="space-y-3">
-          <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--orange); font-size:18px">✓</span>
-            <span style="color:var(--muted-2)">1 460 m² na 2 podlažích</span>
-          </div>
-          <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--orange); font-size:18px">✓</span>
-            <span style="color:var(--muted-2)">200+ strojů světových značek</span>
-          </div>
-          <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--orange); font-size:18px">✓</span>
-            <span style="color:var(--muted-2)">Dochlazovací vzduchotechnika</span>
-          </div>
-          <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--orange); font-size:18px">✓</span>
-            <span style="color:var(--muted-2)">MultiSport, Sodexo, Benefit Plus</span>
-          </div>
-        </div>
-        <a href="tel:+420733190696" class="flex items-center gap-2 mt-6 text-sm font-medium" style="color:var(--orange)">
-          📞 +420 733 190 696
-        </a>
-      </div>
-    </div>
+<footer>
+  <div class="footer-in">
+    <div><div class="fbrand">Extrifit <span>GYM</span></div><div class="fbrand-sub">Největší fitness v Pardubicích</div></div>
+    <div class="fcenter">Pardubice &nbsp;·&nbsp; <a href="https://extrifit-gym.cz/pardubice">extrifit-gym.cz/pardubice</a><br>© 2024 EXTRIFIT GYM</div>
+    <div class="fsocials"><a href="#">Facebook</a><a href="#">Instagram</a></div>
+  </div>
+</footer>
 
-    <div class="max-w-6xl mx-auto px-4 md:px-6 w-full relative z-10 pt-20 pb-16">
-      <div class="max-w-lg">
-        <div class="open-badge mb-6 fade-up">
-          <span class="open-dot"></span>
-          Dnes otevřeno 6:00 – 22:00
-        </div>
-
-        <h1 class="cond font-black leading-none mb-5 fade-up d1" style="font-size: clamp(48px, 8.5vw, 90px); text-transform: uppercase;">
-          Největší<br>
-          fitness<br>
-          v <span style="color:var(--orange)">Pardubicích.</span>
-        </h1>
-
-        <p class="text-sm md:text-base leading-relaxed mb-8 fade-up d2" style="color:var(--muted-2); max-width:400px">
-          1 460 m², 200+ strojů světových značek, dochlazovací vzduchotechnika a tým 10 kvalifikovaných trenérů. Vše otevřeno 7 dní v týdnu.
-        </p>
-
-        <div class="flex flex-wrap gap-3 fade-up d3">
-          <a href="#cenik" class="btn-green px-7 py-3.5 rounded-lg text-base">Koupit permanentku →</a>
-          <a href="#o-gymu" class="btn-outline px-7 py-3.5 rounded-lg text-base">Prohlédnout gym</a>
-        </div>
-
-        <!-- Mini stats -->
-        <div class="flex flex-wrap gap-6 mt-10 fade-up d4" style="border-top:1px solid rgba(255,255,255,0.05); padding-top:1.5rem">
-          <div>
-            <div class="stat-num text-3xl">1 460</div>
-            <div class="text-xs tracking-wider uppercase" style="color:var(--muted)">m² plochy</div>
-          </div>
-          <div>
-            <div class="stat-num text-3xl">200+</div>
-            <div class="text-xs tracking-wider uppercase" style="color:var(--muted)">Strojů + cardio</div>
-          </div>
-          <div>
-            <div class="stat-num text-3xl">10</div>
-            <div class="text-xs tracking-wider uppercase" style="color:var(--muted)">Trenérů</div>
-          </div>
-          <div>
-            <div class="stat-num text-3xl">7</div>
-            <div class="text-xs tracking-wider uppercase" style="color:var(--muted)">Dní v týdnu</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- O GYMU -->
-  <section id="o-gymu" style="background:var(--dark); padding:5rem 1rem">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div>
-          <div class="section-label mb-3">O nás</div>
-          <h2 class="cond font-black uppercase leading-none mb-4" style="font-size:clamp(38px,5vw,60px)">Fitness v americkém stylu.</h2>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">
-            EXTRIFIT GYM Pardubice je největší a nejmodernější fitness v Pardubicích a širokém okolí. Exkluzivně vybavené centrum s americkými stroji — oficiální tréninkové centrum HOIST Fitness a ARSENAL STRENGTH.
-          </p>
-        </div>
-        <div class="rounded-2xl overflow-hidden" style="height:280px">
-          <img src="https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/fitness-podebradska.jpg" alt="EXTRIFIT GYM Pardubice" style="width:100%; height:100%; object-fit:cover; object-position:center">
-        </div>
-      </div>
-
-      <!-- 5 reasons grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">❄️</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Dochlazovací vzduchotechnika</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Speciální profesionální vzduchotechnika pro optimální teplotu při tréninku. Trénuj naplno bez přehřívání.</p>
-        </div>
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">🏃</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Špičková cardio zóna</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Exkluzivní fitness schody a běžecké pásy s dotykovým LCD displayem. Rozsáhlá cardio zóna pro každý cíl.</p>
-        </div>
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">🇺🇸</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Americké stroje HOIST</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Jedinečné americké stroje HOIST Fitness a Arsenal Strength. Vybavení, které nenajdeš jinde v Pardubicích.</p>
-        </div>
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">👨‍💼</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Specialisté na stravu a tréninky</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Tým 10 kvalifikovaných osobních trenérů a výživových poradců. Individuální přístup pro každého.</p>
-        </div>
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">💊</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Prodej suplementů Extrifit</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Kompletní sortiment sportovní výživy Extrifit za internetové ceny. Poradenství přímo na místě.</p>
-        </div>
-        <div class="feat-card rounded-2xl p-7">
-          <div style="font-size:32px; margin-bottom:14px">🌳</div>
-          <h3 class="cond font-bold text-xl uppercase mb-2">Ikonický 90letý strom</h3>
-          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">Kus přírody přivezený ze slunného Španělska. Náš ikonický 90letý strom uprostřed fitness — nezaměnitelná atmosféra.</p>
-        </div>
-      </div>
-
-      <!-- Zones -->
-      <div style="background:var(--dark-2); border:1px solid rgba(255,255,255,0.05); border-radius:20px; padding:2rem 2.5rem 2.5rem">
-        <div class="section-label mb-5">Vybavenost gymu</div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Cardio zóna</div>
-            <p class="text-xs" style="color:var(--muted)">Běžecké pásy, eliptické, schody, kola — vše s LCD</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Silová zóna</div>
-            <p class="text-xs" style="color:var(--muted)">Volné váhy, stroje HOIST, Arsenal, Rogue</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Funkční zóna</div>
-            <p class="text-xs" style="color:var(--muted)">Funkční trénink, TRX, kettlebells, GymGun</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Protahovací sál</div>
-            <p class="text-xs" style="color:var(--muted)">Stretching, relaxace, cool-down po tréninku</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Šatny</div>
-            <p class="text-xs" style="color:var(--muted)">Moderní prostorné šatny se skříčkami na čip</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">Bar / kavárna</div>
-            <p class="text-xs" style="color:var(--muted)">Sportovní výživa Extrifit + nápoje přímo v gymu</p>
-          </div>
-          <div style="background:var(--dark-4); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1">2 podlaží</div>
-            <p class="text-xs" style="color:var(--muted)">Celková plocha 1 460 m² — obrovský prostor</p>
-          </div>
-          <div style="background:rgba(242,88,32,0.06); border:1px solid rgba(242,88,32,0.15); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1" style="color:var(--orange)">Wi-Fi zdarma</div>
-            <p class="text-xs" style="color:var(--muted)">Bezplatné připojení k internetu v celém areálu</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRENÉŘI -->
-  <section id="treneri" style="background:var(--dark-2); padding:5rem 1rem">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-        <div>
-          <div class="section-label mb-3">Náš tým</div>
-          <h2 class="cond font-black uppercase leading-none" style="font-size:clamp(38px,5vw,60px)">10 osobních trenérů.</h2>
-        </div>
-        <p class="text-sm max-w-xs" style="color:var(--muted-2)">Každý trenér si určuje cenu sám. Kontaktujte je přímo nebo se zeptejte na recepci.</p>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="trainers-grid">
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">LU</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Lucie Sequensová</div>
-              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Vedu lidi ke zdravému životnímu stylu. Redukce tuku, nárůst svalové hmoty, kondice. Individuální tréninky i online spolupráce.</p>
-          <a href="tel:+420775959685" class="text-xs" style="color:var(--orange)">+420 775 959 685</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">HA</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Hanka Chládková</div>
-              <div class="text-xs" style="color:var(--orange)">Trenérka · Výživa · Masáže</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let v posilovně. Tréninky na míru, jídelníčky (všežravci i vegani), sportovní masáže. Nováčci i pokročilí.</p>
-          <a href="tel:+420605904798" class="text-xs" style="color:var(--orange)">+420 605 904 798</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">DA</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Daniel Táborský</div>
-              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa · Kulturista</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">9 let v kulturistice a fitness. Zkušenosti se soutěžními dietami, nabíracími a udržovacími fázemi. Začátečníci i pokročilí.</p>
-          <a href="tel:+420721237503" class="text-xs" style="color:var(--orange)">+420 721 237 503</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">TO</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Tomáš Vondrák</div>
-              <div class="text-xs" style="color:var(--orange)">Trenér · Výživový specialista</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let ve fitness. Tréninky a stravovací plány na míru. Nabourat hranice a dosáhnout vysněné formy — to je cíl.</p>
-          <a href="tel:+420604665198" class="text-xs" style="color:var(--orange)">+420 604 665 198</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">JO</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Josef Falt</div>
-              <div class="text-xs" style="color:var(--orange)">Osobní trenér</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">8 let zkušeností. Každý člověk je originál — žádné copy-paste plány. Plně individuální přístup, týmová práce.</p>
-          <a href="tel:+420605347811" class="text-xs" style="color:var(--orange)">+420 605 347 811</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">PE</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Petr Verner</div>
-              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let ve fitness. Nováčci, pokročilí, maminky na MD i senioři. Přátelský přístup, tréninky s humorem i výsledky.</p>
-          <a href="tel:+420608128871" class="text-xs" style="color:var(--orange)">+420 608 128 871</a>
-        </div>
-
-        <!-- Hidden by default -->
-        <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">DH</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">David Hrončok</div>
-              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa · IFBB šampion</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Mistr Čech, ČR a Vícemistr Evropy IFBB. Online coaching, osobní tréninky, jídelníčky, posing. Také mentální příprava.</p>
-          <a href="tel:+420739718570" class="text-xs" style="color:var(--orange)">+420 739 718 570</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">TK</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Tomáš Kašpar</div>
-              <div class="text-xs" style="color:var(--orange)">Trenér · 27 let kulturistiky</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Trénoval v Oxygen Gym Kuwait. Arnold Classic Afrika vítěz, 2x Mister Světa Elite Pro. Mezinárodní zkušenosti přímo pro tebe.</p>
-          <a href="tel:+420775348423" class="text-xs" style="color:var(--orange)">+420 775 348 423</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">KA</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Kateřina Verner</div>
-              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Cvičení má být radost! Začátečníci, ženy, maminky po porodu, mladší i starší. Přátelská atmosféra, pohyb, který dává smysl.</p>
-          <a href="tel:+420604838898" class="text-xs" style="color:var(--orange)">+420 604 838 898</a>
-        </div>
-
-        <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
-          <div class="flex items-start gap-4 mb-4">
-            <div class="trainer-avatar">SI</div>
-            <div>
-              <div class="cond font-bold text-lg uppercase">Simča Straková</div>
-              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
-            </div>
-          </div>
-          <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Sport od dětství. Efektivní a zábavné tréninky, správná technika, jídelníček, zdravý životní styl na míru. Dlouhodobé výsledky.</p>
-          <a href="tel:+420735021219" class="text-xs" style="color:var(--orange)">+420 735 021 219</a>
-        </div>
-
-      </div>
-
-      <div class="text-center mt-8">
-        <button onclick="toggleTrainers()" id="show-more-btn" class="btn-outline px-8 py-3 rounded-lg">
-          Zobrazit všech 10 trenérů →
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CENÍK -->
-  <section id="cenik" style="background:var(--dark); padding:5rem 1rem">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10">
-        <div class="section-label mb-3">Transparentní ceny</div>
-        <h2 class="cond font-black uppercase leading-none mb-4" style="font-size:clamp(38px,5vw,60px)">Ceník permanentek</h2>
-        <p class="text-sm mb-6" style="color:var(--muted-2)">Platný od 6. 12. 2025 · Ceny s DPH</p>
-
-        <!-- Toggle -->
-        <div class="price-toggle">
-          <button class="toggle-btn active" id="btn-standard" onclick="switchPricing('standard')">Základní</button>
-          <button class="toggle-btn" id="btn-discount" onclick="switchPricing('discount')">Studenti / Senioři 60+</button>
-        </div>
-      </div>
-
-      <!-- Pricing table -->
-      <div style="background:var(--dark-3); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden">
-
-        <div class="price-row header">
-          <div class="text-xs tracking-widest uppercase cond font-bold">Produkt</div>
-          <div class="text-xs tracking-widest uppercase cond font-bold text-center">Platnost</div>
-          <div class="text-xs tracking-widest uppercase cond font-bold text-right" style="color:var(--orange)">Cena</div>
-        </div>
-
-        <div class="price-row">
-          <div>
-            <div class="font-medium text-sm">Jednorázové vstupné</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">—</div>
-          <div class="cond font-black text-xl text-right price-std">230 Kč <span class="price-dis hidden">200 Kč</span></div>
-        </div>
-
-        <div class="price-row" style="background:rgba(242,88,32,0.03)">
-          <div>
-            <div class="font-medium text-sm">Permanentka 10 vstupů</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">3 měsíce</div>
-          <div class="cond font-black text-xl text-right">
-            <span class="price-std">1 500 Kč</span><span class="price-dis hidden">1 300 Kč</span>
-          </div>
-        </div>
-
-        <div class="price-row">
-          <div>
-            <div class="font-medium text-sm">Permanentka 20 vstupů</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">6 měsíců</div>
-          <div class="cond font-black text-xl text-right">
-            <span class="price-std">2 800 Kč</span><span class="price-dis hidden">2 400 Kč</span>
-          </div>
-        </div>
-
-        <div class="price-row" style="background:rgba(242,88,32,0.03)">
-          <div>
-            <div class="font-medium text-sm">Permanentka 1 měsíc</div>
-            <div class="text-xs" style="color:var(--muted)">Neomezené vstupy</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">1 měsíc</div>
-          <div class="cond font-black text-2xl text-right" style="color:var(--orange)">
-            <span class="price-std">1 500 Kč</span><span class="price-dis hidden">1 300 Kč</span>
-          </div>
-        </div>
-
-        <div class="price-row">
-          <div>
-            <div class="font-medium text-sm">Permanentka 3 měsíce</div>
-            <div class="text-xs" style="color:var(--muted)">Neomezené vstupy</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">3 měsíce</div>
-          <div class="cond font-black text-xl text-right">
-            <span class="price-std">4 200 Kč</span><span class="price-dis hidden">3 600 Kč</span>
-          </div>
-        </div>
-
-        <div class="price-row" style="background:rgba(242,88,32,0.03)">
-          <div>
-            <div class="font-medium text-sm">Permanentka 6 měsíců</div>
-            <div class="text-xs" style="color:var(--muted)">Neomezené vstupy</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">6 měsíců</div>
-          <div class="cond font-black text-xl text-right">
-            <span class="price-std">7 800 Kč</span><span class="price-dis hidden">6 600 Kč</span>
-          </div>
-        </div>
-
-        <div class="price-row">
-          <div>
-            <div class="font-medium text-sm">Permanentka 12 měsíců</div>
-            <div class="text-xs" style="color:var(--muted)">Neomezené vstupy — nejlepší hodnota</div>
-          </div>
-          <div class="text-xs text-center" style="color:var(--muted)">12 měsíců</div>
-          <div class="cond font-black text-2xl text-right">
-            <span class="price-std">12 600 Kč</span><span class="price-dis hidden">10 200 Kč</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Notes -->
-      <div class="mt-5 space-y-2">
-        <p class="text-xs" style="color:var(--muted)">* Zvýhodněné vstupné: studenti a senioři 60+ (nutný průkaz)</p>
-        <p class="text-xs" style="color:var(--muted)">* Permanentky platné i v EXTRIFIT GYM Resslova a EXTRIFIT GYM Svitavská (Hradec Králové)</p>
-        <p class="text-xs" style="color:var(--muted)">* Cena lekcí s osobním trenérem závisí na konkrétním trenérovi</p>
-      </div>
-
-      <!-- Payment methods -->
-      <div class="mt-8">
-        <div class="section-label mb-4">Způsoby platby</div>
-        <div class="flex flex-wrap gap-2">
-          <div class="pay-badge">💵 Hotovost</div>
-          <div class="pay-badge">💳 Platební karta</div>
-          <div class="pay-badge">🏅 MultiSport</div>
-          <div class="pay-badge">🏢 Gallery BETA</div>
-          <div class="pay-badge">🎫 Sodexo</div>
-          <div class="pay-badge">📋 FKSP</div>
-          <div class="pay-badge">✨ Benefit Plus</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DOPLŇKY -->
-  <section id="doplnky" style="background:var(--dark-2); padding:4rem 1rem">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <div class="section-label mb-3">Prodejna Extrifit</div>
-          <h2 class="cond font-black uppercase leading-none mb-5" style="font-size:clamp(36px,4.5vw,56px)">
-            Sportovní výživa<br>za internetové ceny.
-          </h2>
-          <p class="text-sm leading-relaxed mb-6" style="color:var(--muted-2)">
-            V EXTRIFIT GYM máš možnost zakoupit kompletní sortiment sportovní výživy a oblečení značky Extrifit — za internetové ceny. S výběrem ti rádi poradíme. Lze vyzvednout i objednávku z e-shopu gymgun.cz.
-          </p>
-          <div class="space-y-2 text-sm" style="color:var(--muted-2)">
-            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Proteiny, gainery, aminokyseliny</div>
-            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Pre-workout a spalovače</div>
-            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Oblečení značky Extrifit</div>
-            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Vyzvednutí objednávky z gymgun.cz</div>
-            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Odborné poradenství zdarma</div>
-          </div>
-        </div>
-
-        <div style="border-radius:20px; overflow:hidden; position:relative; min-height:320px">
-          <img src="https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/prodej-doplnku-extrifit-2.jpg" alt="Prodej doplňků Extrifit" style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0">
-          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(6,7,9,0.85) 0%, rgba(6,7,9,0.3) 60%, transparent 100%)"></div>
-          <div style="position:absolute; bottom:0; left:0; right:0; padding:28px">
-            <div class="cond font-black text-2xl uppercase mb-2">Bar & prodejna v gymu</div>
-            <p class="text-sm" style="color:rgba(232,236,245,0.8)">Vše za internetové ceny. Sortiment Extrifit přímo v gymu.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KONTAKT -->
-  <section id="kontakt" style="background:var(--dark); padding:5rem 1rem; border-top:1px solid rgba(255,255,255,0.04)">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-12">
-
-        <!-- Contact info + hours -->
-        <div>
-          <div class="section-label mb-3">Kontakt</div>
-          <h2 class="cond font-black uppercase leading-none mb-8" style="font-size:clamp(38px,5vw,56px)">Najdete nás<br>v Pardubicích.</h2>
-
-          <div class="space-y-6 text-sm mb-8">
-            <div>
-              <div class="text-xs tracking-widest uppercase mb-1" style="color:var(--muted)">Adresa</div>
-              <div>Poděbradská 297, 530 09 Pardubice</div>
-            </div>
-            <div>
-              <div class="text-xs tracking-widest uppercase mb-1" style="color:var(--muted)">Telefon</div>
-              <a href="tel:+420733190696" style="color:var(--orange)">+420 733 190 696</a>
-            </div>
-            <div>
-              <div class="text-xs tracking-widest uppercase mb-1" style="color:var(--muted)">E-mail</div>
-              <a href="mailto:info@extrifit-gym.cz" style="color:var(--orange)">info@extrifit-gym.cz</a>
-            </div>
-            <div>
-              <div class="text-xs tracking-widest uppercase mb-2" style="color:var(--muted)">Otevírací doba</div>
-              <div>
-                <div class="hours-row flex justify-between py-2.5 text-sm">
-                  <span style="color:var(--muted-2)">Pondělí – Pátek</span>
-                  <span class="font-medium">6:00 – 22:00</span>
-                </div>
-                <div class="flex justify-between py-2.5 text-sm">
-                  <span style="color:var(--muted-2)">Sobota – Neděle</span>
-                  <span class="font-medium">7:00 – 22:00</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="background:var(--dark-3); border:1px solid rgba(255,255,255,0.05); border-radius:16px; padding:20px">
-            <div class="text-xs tracking-widest uppercase mb-3" style="color:var(--muted)">Zodpovědná osoba</div>
-            <div class="cond font-bold text-lg uppercase">Vojtěch Koritenský, DiS.</div>
-            <div class="text-xs mb-2" style="color:var(--orange)">Majitel, manažer · Tvář EXTRIFIT</div>
-            <p class="text-xs" style="color:var(--muted-2)">Uznávaný profesionální kulturista, fitness trenér a hlavní tvář značky EXTRIFIT. Majitel EXTRIFIT GYMu.</p>
-          </div>
-        </div>
-
-        <!-- Contact form -->
-        <div>
-          <div class="cond font-bold text-xl uppercase mb-5">Napište nám</div>
-          <div class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="text-xs tracking-widest uppercase mb-2 block" style="color:var(--muted)">Jméno a příjmení *</label>
-                <input type="text" class="res-input" placeholder="Jan Novák" id="c-name">
-              </div>
-              <div>
-                <label class="text-xs tracking-widest uppercase mb-2 block" style="color:var(--muted)">Telefon</label>
-                <input type="tel" class="res-input" placeholder="+420 600 000 000">
-              </div>
-            </div>
-            <div>
-              <label class="text-xs tracking-widest uppercase mb-2 block" style="color:var(--muted)">E-mail *</label>
-              <input type="email" class="res-input" placeholder="jan@email.cz" id="c-email">
-            </div>
-            <div>
-              <label class="text-xs tracking-widest uppercase mb-2 block" style="color:var(--muted)">Předmět</label>
-              <select class="res-input">
-                <option value="">Vyberte téma</option>
-                <option>Informace o permanentkách</option>
-                <option>Osobní trénink</option>
-                <option>Výživové poradenství</option>
-                <option>Prodej doplňků</option>
-                <option>Jiné</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-xs tracking-widest uppercase mb-2 block" style="color:var(--muted)">Vaše zpráva *</label>
-              <textarea class="res-input" rows="4" placeholder="Váš dotaz..." id="c-msg"></textarea>
-            </div>
-            <div class="flex items-start gap-2">
-              <input type="checkbox" id="gdpr" class="w-4 h-4 mt-0.5">
-              <label for="gdpr" class="text-xs" style="color:var(--muted)">Souhlasím se zpracováním osobních údajů</label>
-            </div>
-            <button onclick="sendContact()" class="btn-green w-full py-4 rounded-lg text-base">Odeslat zprávu →</button>
-            <div id="contact-success" class="hidden text-center py-3" style="background:rgba(242,88,32,0.08); border:1px solid rgba(242,88,32,0.2); border-radius:10px; color:var(--orange)">
-              ✅ Zpráva odeslána! Ozveme se do 1 pracovního dne.
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Map placeholder -->
-      <div class="mt-10 w-full rounded-2xl overflow-hidden" style="height:260px; background:var(--dark-3); border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px">
-        <div style="font-size:36px">📍</div>
-        <div class="cond font-bold text-xl uppercase">Poděbradská 297, Pardubice</div>
-        <a href="https://maps.google.com/?q=Poděbradská+297+530+09+Pardubice" target="_blank" class="btn-green px-5 py-2 rounded-lg text-sm mt-1">Otevřít v Google Maps →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer style="background:var(--dark-2); border-top:1px solid rgba(255,255,255,0.04); padding:2rem 1rem">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="cond font-black text-xl">
-        <span style="color:var(--orange)">EXTRIFIT</span>
-        <span> GYM</span>
-        <span class="text-sm font-normal tracking-widest uppercase ml-2" style="color:var(--muted)">Pardubice</span>
-      </div>
-      <div class="text-xs text-center" style="color:var(--muted)">
-        © 2026 EXTRIFIT GYM CZ s.r.o. · Poděbradská 297, 530 09 Pardubice · IČ: 02048744
-      </div>
-      <a href="#cenik" style="color:var(--orange)" class="text-sm font-medium hover:underline">Koupit permanentku →</a>
-    </div>
-  </footer>
-
-  <script>
-    // ======== PRICING TOGGLE ========
-    function switchPricing(type) {
-      document.getElementById('btn-standard').classList.toggle('active', type === 'standard');
-      document.getElementById('btn-discount').classList.toggle('active', type === 'discount');
-      document.querySelectorAll('.price-std').forEach(el => el.classList.toggle('hidden', type === 'discount'));
-      document.querySelectorAll('.price-dis').forEach(el => el.classList.toggle('hidden', type === 'standard'));
-    }
-
-    // ======== TRAINERS TOGGLE ========
-    let trainersExpanded = false;
-    function toggleTrainers() {
-      trainersExpanded = !trainersExpanded;
-      document.querySelectorAll('.extra-trainer').forEach(el => {
-        el.classList.toggle('hidden', !trainersExpanded);
-      });
-      document.getElementById('show-more-btn').textContent = trainersExpanded
-        ? '← Zobrazit méně'
-        : 'Zobrazit všech 10 trenérů →';
-    }
-
-    // ======== CONTACT FORM ========
-    function sendContact() {
-      const name = document.getElementById('c-name').value.trim();
-      const email = document.getElementById('c-email').value.trim();
-      const msg = document.getElementById('c-msg').value.trim();
-      const gdpr = document.getElementById('gdpr').checked;
-
-      [document.getElementById('c-name'), document.getElementById('c-email'), document.getElementById('c-msg')].forEach(inp => {
-        inp.style.borderColor = inp.value.trim() ? '' : 'rgba(225,29,72,0.6)';
-      });
-
-      if (!name || !email || !msg || !gdpr) return;
-
-      document.getElementById('contact-success').classList.remove('hidden');
-    }
-
-    // ======== NAVBAR SCROLL ========
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      nav.style.borderBottomColor = window.scrollY > 50 ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.04)';
-    });
-  </script>
+<script>
+function s(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+const pxEls=document.querySelectorAll('.px');
+const pb=document.getElementById('progress');
+function onScroll(){
+  const sy=window.scrollY;
+  pb.style.width=(sy/(document.documentElement.scrollHeight-innerHeight)*100)+'%';
+  document.getElementById('nav').classList.toggle('compact',sy>80);
+  pxEls.forEach(el=>{
+    const p=el.parentElement;
+    const r=p.getBoundingClientRect();
+    const off=(r.top+r.height/2-innerHeight/2)*0.28;
+    el.style.transform=`translate3d(0,${off}px,0) scale(1.2)`;
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hide');
+    const hc=document.getElementById('heroC');
+    hc.style.opacity='1';hc.style.transform='translateY(0)';
+    onScroll();
+  },600);
+});
+function ptab(id,btn){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.ppanel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('pp-'+id).classList.add('active');
+}
+function submitRes(){
+  if(!document.getElementById('rN').value.trim()||!document.getElementById('rE').value.trim()||!document.getElementById('rA').value){alert('Vyplňte prosím všechna povinná pole.');return}
+  document.getElementById('resF').style.display='none';
+  document.getElementById('resOk').style.display='block';
+}
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});
+document.querySelectorAll('.sr').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
