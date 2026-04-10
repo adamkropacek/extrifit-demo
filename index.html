@@ -8,9 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #16C950;
-      --green-dark: #12A840;
-      --green-glow: rgba(22,201,80,0.12);
+      --orange: #f25820;
+      --orange-dark: #d44a18;
+      --orange-glow: rgba(242,88,32,0.12);
       --dark: #060709;
       --dark-2: #0B0D12;
       --dark-3: #10131A;
@@ -36,9 +36,18 @@
     .hero { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; }
     .hero-bg {
       position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 0%, rgba(22,201,80,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 90% 80%, rgba(22,201,80,0.04) 0%, transparent 60%);
+      background-image: url('https://extrifit-gym.cz/pardubice/wp-content/uploads/revslider/hlavni-slider/pozadi-slider.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(6,7,9,0.92) 0%,
+        rgba(6,7,9,0.85) 45%,
+        rgba(6,7,9,0.5) 100%
+      );
     }
     .hero-grid {
       position: absolute; inset: 0;
@@ -56,8 +65,8 @@
       padding: 80px 50px 40px 80px;
     }
     .hero-info-card {
-      background: rgba(22,201,80,0.05);
-      border: 1px solid rgba(22,201,80,0.12);
+      background: rgba(242,88,32,0.05);
+      border: 1px solid rgba(242,88,32,0.12);
       border-radius: 16px;
       padding: 28px;
       width: 100%;
@@ -65,7 +74,7 @@
 
     /* Buttons */
     .btn-green {
-      background: var(--green);
+      background: var(--orange);
       color: var(--dark);
       font-weight: 700;
       font-family: 'Barlow Condensed', sans-serif;
@@ -74,7 +83,7 @@
       transition: all 0.2s;
       text-transform: uppercase;
     }
-    .btn-green:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(22,201,80,0.3); }
+    .btn-green:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(242,88,32,0.3); }
     .btn-outline {
       border: 1px solid rgba(255,255,255,0.14);
       color: var(--light);
@@ -84,7 +93,7 @@
       transition: all 0.2s;
       text-transform: uppercase;
     }
-    .btn-outline:hover { border-color: rgba(22,201,80,0.5); color: var(--green); }
+    .btn-outline:hover { border-color: rgba(22,201,80,0.5); color: var(--orange); }
 
     /* Section label */
     .section-label {
@@ -92,7 +101,7 @@
       font-size: 11px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--green);
+      color: var(--orange);
       font-weight: 700;
     }
 
@@ -103,7 +112,7 @@
       transition: all 0.3s;
     }
     .feat-card:hover {
-      border-color: rgba(22,201,80,0.2);
+      border-color: rgba(242,88,32,0.2);
       background: var(--dark-4);
       transform: translateY(-3px);
     }
@@ -115,18 +124,18 @@
       transition: all 0.3s;
     }
     .trainer-card:hover {
-      border-color: rgba(22,201,80,0.25);
+      border-color: rgba(242,88,32,0.25);
       background: var(--dark-4);
     }
     .trainer-avatar {
       width: 56px; height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(22,201,80,0.2), rgba(22,201,80,0.05));
-      border: 1px solid rgba(22,201,80,0.2);
+      background: linear-gradient(135deg, rgba(242,88,32,0.2), rgba(242,88,32,0.05));
+      border: 1px solid rgba(242,88,32,0.2);
       display: flex; align-items: center; justify-content: center;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 20px; font-weight: 800;
-      color: var(--green);
+      color: var(--orange);
       flex-shrink: 0;
     }
 
@@ -150,7 +159,7 @@
       color: var(--muted-2);
       border: none; background: transparent;
     }
-    .toggle-btn.active { background: var(--green); color: var(--dark); font-weight: 700; }
+    .toggle-btn.active { background: var(--orange); color: var(--dark); font-weight: 700; }
 
     /* Pricing table row */
     .price-row {
@@ -163,8 +172,8 @@
       transition: background 0.15s;
     }
     .price-row:last-child { border-bottom: none; }
-    .price-row:hover { background: rgba(22,201,80,0.03); }
-    .price-row.header { background: rgba(22,201,80,0.06); border-radius: 10px 10px 0 0; }
+    .price-row:hover { background: rgba(242,88,32,0.03); }
+    .price-row.header { background: rgba(242,88,32,0.06); border-radius: 10px 10px 0 0; }
 
     /* Payment badges */
     .pay-badge {
@@ -191,7 +200,7 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .res-input:focus { border-color: rgba(22,201,80,0.45); }
+    .res-input:focus { border-color: rgba(242,88,32,0.45); }
     .res-input::placeholder { color: #2E3340; }
     .res-input option { background: var(--dark-3); }
 
@@ -199,22 +208,22 @@
     .stat-num {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 900;
-      color: var(--green);
+      color: var(--orange);
       line-height: 1;
     }
 
     /* Open badge */
     .open-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(22,201,80,0.08);
-      border: 1px solid rgba(22,201,80,0.2);
-      color: var(--green);
+      background: rgba(242,88,32,0.08);
+      border: 1px solid rgba(242,88,32,0.2);
+      color: var(--orange);
       font-size: 11px;
       padding: 4px 12px;
       border-radius: 20px;
       letter-spacing: 0.08em;
     }
-    .open-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    .open-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
     /* Hours */
@@ -240,7 +249,7 @@
     /* Scrollbar */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--dark); }
-    ::-webkit-scrollbar-thumb { background: rgba(22,201,80,0.3); border-radius: 2px; }
+    ::-webkit-scrollbar-thumb { background: rgba(242,88,32,0.3); border-radius: 2px; }
   </style>
 </head>
 <body>
@@ -250,7 +259,7 @@
     <div class="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
         <div class="cond font-black text-xl tracking-tight">
-          <span style="color:var(--green)">EXTRIFIT</span>
+          <span style="color:var(--orange)">EXTRIFIT</span>
           <span style="color:var(--light)"> GYM</span>
         </div>
         <span class="hidden sm:block text-xs tracking-widest uppercase" style="color:var(--muted); border-left:1px solid rgba(255,255,255,0.08); padding-left:12px">Pardubice</span>
@@ -275,10 +284,11 @@
   <!-- HERO -->
   <section class="hero" id="uvod">
     <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-grid"></div>
     <div class="hero-right">
       <div class="hero-info-card">
-        <div class="text-xs tracking-widest uppercase mb-5" style="color:var(--green); font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.18em">Otevírací doba</div>
+        <div class="text-xs tracking-widest uppercase mb-5" style="color:var(--orange); font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.18em">Otevírací doba</div>
         <div style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:14px; margin-bottom:14px">
           <div class="text-xs mb-1" style="color:var(--muted)">Pondělí – Pátek</div>
           <div style="font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; color:var(--light)">6:00 – 22:00</div>
@@ -289,23 +299,23 @@
         </div>
         <div class="space-y-3">
           <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--orange); font-size:18px">✓</span>
             <span style="color:var(--muted-2)">1 460 m² na 2 podlažích</span>
           </div>
           <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--orange); font-size:18px">✓</span>
             <span style="color:var(--muted-2)">200+ strojů světových značek</span>
           </div>
           <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--orange); font-size:18px">✓</span>
             <span style="color:var(--muted-2)">Dochlazovací vzduchotechnika</span>
           </div>
           <div class="flex items-center gap-3 text-sm">
-            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--orange); font-size:18px">✓</span>
             <span style="color:var(--muted-2)">MultiSport, Sodexo, Benefit Plus</span>
           </div>
         </div>
-        <a href="tel:+420733190696" class="flex items-center gap-2 mt-6 text-sm font-medium" style="color:var(--green)">
+        <a href="tel:+420733190696" class="flex items-center gap-2 mt-6 text-sm font-medium" style="color:var(--orange)">
           📞 +420 733 190 696
         </a>
       </div>
@@ -321,7 +331,7 @@
         <h1 class="cond font-black leading-none mb-5 fade-up d1" style="font-size: clamp(48px, 8.5vw, 90px); text-transform: uppercase;">
           Největší<br>
           fitness<br>
-          v <span style="color:var(--green)">Pardubicích.</span>
+          v <span style="color:var(--orange)">Pardubicích.</span>
         </h1>
 
         <p class="text-sm md:text-base leading-relaxed mb-8 fade-up d2" style="color:var(--muted-2); max-width:400px">
@@ -360,12 +370,17 @@
   <!-- O GYMU -->
   <section id="o-gymu" style="background:var(--dark); padding:5rem 1rem">
     <div class="max-w-6xl mx-auto">
-      <div class="mb-12">
-        <div class="section-label mb-3">O nás</div>
-        <h2 class="cond font-black uppercase leading-none mb-4" style="font-size:clamp(38px,5vw,60px)">Fitness v americkém stylu.</h2>
-        <p class="text-sm leading-relaxed max-w-2xl" style="color:var(--muted-2)">
-          EXTRIFIT GYM Pardubice je největší a nejmodernější fitness v Pardubicích a širokém okolí. Exkluzivně vybavené centrum s americkými stroji — oficiální tréninkové centrum HOIST Fitness a ARSENAL STRENGTH.
-        </p>
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <div class="section-label mb-3">O nás</div>
+          <h2 class="cond font-black uppercase leading-none mb-4" style="font-size:clamp(38px,5vw,60px)">Fitness v americkém stylu.</h2>
+          <p class="text-sm leading-relaxed" style="color:var(--muted-2)">
+            EXTRIFIT GYM Pardubice je největší a nejmodernější fitness v Pardubicích a širokém okolí. Exkluzivně vybavené centrum s americkými stroji — oficiální tréninkové centrum HOIST Fitness a ARSENAL STRENGTH.
+          </p>
+        </div>
+        <div class="rounded-2xl overflow-hidden" style="height:280px">
+          <img src="https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/fitness-podebradska.jpg" alt="EXTRIFIT GYM Pardubice" style="width:100%; height:100%; object-fit:cover; object-position:center">
+        </div>
       </div>
 
       <!-- 5 reasons grid -->
@@ -403,9 +418,9 @@
       </div>
 
       <!-- Zones -->
-      <div style="background:var(--dark-2); border:1px solid rgba(255,255,255,0.05); border-radius:20px; padding:2rem md:padding:2.5rem">
+      <div style="background:var(--dark-2); border:1px solid rgba(255,255,255,0.05); border-radius:20px; padding:2rem 2.5rem 2.5rem">
         <div class="section-label mb-5">Vybavenost gymu</div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
           <div style="background:var(--dark-4); border-radius:12px; padding:18px">
             <div class="cond font-bold text-base uppercase mb-1">Cardio zóna</div>
             <p class="text-xs" style="color:var(--muted)">Běžecké pásy, eliptické, schody, kola — vše s LCD</p>
@@ -434,8 +449,8 @@
             <div class="cond font-bold text-base uppercase mb-1">2 podlaží</div>
             <p class="text-xs" style="color:var(--muted)">Celková plocha 1 460 m² — obrovský prostor</p>
           </div>
-          <div style="background:rgba(22,201,80,0.06); border:1px solid rgba(22,201,80,0.15); border-radius:12px; padding:18px">
-            <div class="cond font-bold text-base uppercase mb-1" style="color:var(--green)">Wi-Fi zdarma</div>
+          <div style="background:rgba(242,88,32,0.06); border:1px solid rgba(242,88,32,0.15); border-radius:12px; padding:18px">
+            <div class="cond font-bold text-base uppercase mb-1" style="color:var(--orange)">Wi-Fi zdarma</div>
             <p class="text-xs" style="color:var(--muted)">Bezplatné připojení k internetu v celém areálu</p>
           </div>
         </div>
@@ -461,11 +476,11 @@
             <div class="trainer-avatar">LU</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Lucie Sequensová</div>
-              <div class="text-xs" style="color:var(--green)">Osobní trenérka</div>
+              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Vedu lidi ke zdravému životnímu stylu. Redukce tuku, nárůst svalové hmoty, kondice. Individuální tréninky i online spolupráce.</p>
-          <a href="tel:+420775959685" class="text-xs" style="color:var(--green)">+420 775 959 685</a>
+          <a href="tel:+420775959685" class="text-xs" style="color:var(--orange)">+420 775 959 685</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6">
@@ -473,11 +488,11 @@
             <div class="trainer-avatar">HA</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Hanka Chládková</div>
-              <div class="text-xs" style="color:var(--green)">Trenérka · Výživa · Masáže</div>
+              <div class="text-xs" style="color:var(--orange)">Trenérka · Výživa · Masáže</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let v posilovně. Tréninky na míru, jídelníčky (všežravci i vegani), sportovní masáže. Nováčci i pokročilí.</p>
-          <a href="tel:+420605904798" class="text-xs" style="color:var(--green)">+420 605 904 798</a>
+          <a href="tel:+420605904798" class="text-xs" style="color:var(--orange)">+420 605 904 798</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6">
@@ -485,11 +500,11 @@
             <div class="trainer-avatar">DA</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Daniel Táborský</div>
-              <div class="text-xs" style="color:var(--green)">Trenér · Výživa · Kulturista</div>
+              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa · Kulturista</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">9 let v kulturistice a fitness. Zkušenosti se soutěžními dietami, nabíracími a udržovacími fázemi. Začátečníci i pokročilí.</p>
-          <a href="tel:+420721237503" class="text-xs" style="color:var(--green)">+420 721 237 503</a>
+          <a href="tel:+420721237503" class="text-xs" style="color:var(--orange)">+420 721 237 503</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6">
@@ -497,11 +512,11 @@
             <div class="trainer-avatar">TO</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Tomáš Vondrák</div>
-              <div class="text-xs" style="color:var(--green)">Trenér · Výživový specialista</div>
+              <div class="text-xs" style="color:var(--orange)">Trenér · Výživový specialista</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let ve fitness. Tréninky a stravovací plány na míru. Nabourat hranice a dosáhnout vysněné formy — to je cíl.</p>
-          <a href="tel:+420604665198" class="text-xs" style="color:var(--green)">+420 604 665 198</a>
+          <a href="tel:+420604665198" class="text-xs" style="color:var(--orange)">+420 604 665 198</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6">
@@ -509,11 +524,11 @@
             <div class="trainer-avatar">JO</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Josef Falt</div>
-              <div class="text-xs" style="color:var(--green)">Osobní trenér</div>
+              <div class="text-xs" style="color:var(--orange)">Osobní trenér</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">8 let zkušeností. Každý člověk je originál — žádné copy-paste plány. Plně individuální přístup, týmová práce.</p>
-          <a href="tel:+420605347811" class="text-xs" style="color:var(--green)">+420 605 347 811</a>
+          <a href="tel:+420605347811" class="text-xs" style="color:var(--orange)">+420 605 347 811</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6">
@@ -521,11 +536,11 @@
             <div class="trainer-avatar">PE</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Petr Verner</div>
-              <div class="text-xs" style="color:var(--green)">Trenér · Výživa</div>
+              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">10+ let ve fitness. Nováčci, pokročilí, maminky na MD i senioři. Přátelský přístup, tréninky s humorem i výsledky.</p>
-          <a href="tel:+420608128871" class="text-xs" style="color:var(--green)">+420 608 128 871</a>
+          <a href="tel:+420608128871" class="text-xs" style="color:var(--orange)">+420 608 128 871</a>
         </div>
 
         <!-- Hidden by default -->
@@ -534,11 +549,11 @@
             <div class="trainer-avatar">DH</div>
             <div>
               <div class="cond font-bold text-lg uppercase">David Hrončok</div>
-              <div class="text-xs" style="color:var(--green)">Trenér · Výživa · IFBB šampion</div>
+              <div class="text-xs" style="color:var(--orange)">Trenér · Výživa · IFBB šampion</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Mistr Čech, ČR a Vícemistr Evropy IFBB. Online coaching, osobní tréninky, jídelníčky, posing. Také mentální příprava.</p>
-          <a href="tel:+420739718570" class="text-xs" style="color:var(--green)">+420 739 718 570</a>
+          <a href="tel:+420739718570" class="text-xs" style="color:var(--orange)">+420 739 718 570</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
@@ -546,11 +561,11 @@
             <div class="trainer-avatar">TK</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Tomáš Kašpar</div>
-              <div class="text-xs" style="color:var(--green)">Trenér · 27 let kulturistiky</div>
+              <div class="text-xs" style="color:var(--orange)">Trenér · 27 let kulturistiky</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Trénoval v Oxygen Gym Kuwait. Arnold Classic Afrika vítěz, 2x Mister Světa Elite Pro. Mezinárodní zkušenosti přímo pro tebe.</p>
-          <a href="tel:+420775348423" class="text-xs" style="color:var(--green)">+420 775 348 423</a>
+          <a href="tel:+420775348423" class="text-xs" style="color:var(--orange)">+420 775 348 423</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
@@ -558,11 +573,11 @@
             <div class="trainer-avatar">KA</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Kateřina Verner</div>
-              <div class="text-xs" style="color:var(--green)">Osobní trenérka</div>
+              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Cvičení má být radost! Začátečníci, ženy, maminky po porodu, mladší i starší. Přátelská atmosféra, pohyb, který dává smysl.</p>
-          <a href="tel:+420604838898" class="text-xs" style="color:var(--green)">+420 604 838 898</a>
+          <a href="tel:+420604838898" class="text-xs" style="color:var(--orange)">+420 604 838 898</a>
         </div>
 
         <div class="trainer-card rounded-2xl p-6 hidden extra-trainer">
@@ -570,11 +585,11 @@
             <div class="trainer-avatar">SI</div>
             <div>
               <div class="cond font-bold text-lg uppercase">Simča Straková</div>
-              <div class="text-xs" style="color:var(--green)">Osobní trenérka</div>
+              <div class="text-xs" style="color:var(--orange)">Osobní trenérka</div>
             </div>
           </div>
           <p class="text-xs leading-relaxed mb-4" style="color:var(--muted-2)">Sport od dětství. Efektivní a zábavné tréninky, správná technika, jídelníček, zdravý životní styl na míru. Dlouhodobé výsledky.</p>
-          <a href="tel:+420735021219" class="text-xs" style="color:var(--green)">+420 735 021 219</a>
+          <a href="tel:+420735021219" class="text-xs" style="color:var(--orange)">+420 735 021 219</a>
         </div>
 
       </div>
@@ -608,7 +623,7 @@
         <div class="price-row header">
           <div class="text-xs tracking-widest uppercase cond font-bold">Produkt</div>
           <div class="text-xs tracking-widest uppercase cond font-bold text-center">Platnost</div>
-          <div class="text-xs tracking-widest uppercase cond font-bold text-right" style="color:var(--green)">Cena</div>
+          <div class="text-xs tracking-widest uppercase cond font-bold text-right" style="color:var(--orange)">Cena</div>
         </div>
 
         <div class="price-row">
@@ -619,7 +634,7 @@
           <div class="cond font-black text-xl text-right price-std">230 Kč <span class="price-dis hidden">200 Kč</span></div>
         </div>
 
-        <div class="price-row" style="background:rgba(22,201,80,0.03)">
+        <div class="price-row" style="background:rgba(242,88,32,0.03)">
           <div>
             <div class="font-medium text-sm">Permanentka 10 vstupů</div>
           </div>
@@ -639,13 +654,13 @@
           </div>
         </div>
 
-        <div class="price-row" style="background:rgba(22,201,80,0.03)">
+        <div class="price-row" style="background:rgba(242,88,32,0.03)">
           <div>
             <div class="font-medium text-sm">Permanentka 1 měsíc</div>
             <div class="text-xs" style="color:var(--muted)">Neomezené vstupy</div>
           </div>
           <div class="text-xs text-center" style="color:var(--muted)">1 měsíc</div>
-          <div class="cond font-black text-2xl text-right" style="color:var(--green)">
+          <div class="cond font-black text-2xl text-right" style="color:var(--orange)">
             <span class="price-std">1 500 Kč</span><span class="price-dis hidden">1 300 Kč</span>
           </div>
         </div>
@@ -661,7 +676,7 @@
           </div>
         </div>
 
-        <div class="price-row" style="background:rgba(22,201,80,0.03)">
+        <div class="price-row" style="background:rgba(242,88,32,0.03)">
           <div>
             <div class="font-medium text-sm">Permanentka 6 měsíců</div>
             <div class="text-xs" style="color:var(--muted)">Neomezené vstupy</div>
@@ -721,22 +736,20 @@
             V EXTRIFIT GYM máš možnost zakoupit kompletní sortiment sportovní výživy a oblečení značky Extrifit — za internetové ceny. S výběrem ti rádi poradíme. Lze vyzvednout i objednávku z e-shopu gymgun.cz.
           </p>
           <div class="space-y-2 text-sm" style="color:var(--muted-2)">
-            <div class="flex items-center gap-3"><span style="color:var(--green)">✓</span> Proteiny, gainery, aminokyseliny</div>
-            <div class="flex items-center gap-3"><span style="color:var(--green)">✓</span> Pre-workout a spalovače</div>
-            <div class="flex items-center gap-3"><span style="color:var(--green)">✓</span> Oblečení značky Extrifit</div>
-            <div class="flex items-center gap-3"><span style="color:var(--green)">✓</span> Vyzvednutí objednávky z gymgun.cz</div>
-            <div class="flex items-center gap-3"><span style="color:var(--green)">✓</span> Odborné poradenství zdarma</div>
+            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Proteiny, gainery, aminokyseliny</div>
+            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Pre-workout a spalovače</div>
+            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Oblečení značky Extrifit</div>
+            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Vyzvednutí objednávky z gymgun.cz</div>
+            <div class="flex items-center gap-3"><span style="color:var(--orange)">✓</span> Odborné poradenství zdarma</div>
           </div>
         </div>
 
-        <div style="background:var(--dark-3); border:1px solid rgba(22,201,80,0.12); border-radius:20px; padding:32px">
-          <div class="text-5xl mb-4">💊</div>
-          <div class="cond font-black text-2xl uppercase mb-3">Bar & prodejna v gymu</div>
-          <p class="text-sm leading-relaxed mb-5" style="color:var(--muted-2)">
-            Přímo v fitness centru máš k dispozici bar vybavený širokou škálou sportovní výživy. Doplň energii před nebo po tréninku bez zbytečných zajížděk.
-          </p>
-          <div style="background:rgba(22,201,80,0.06); border:1px solid rgba(22,201,80,0.15); border-radius:10px; padding:14px">
-            <p class="text-xs" style="color:var(--muted-2)">🏷️ Vše za <strong style="color:white">internetové ceny</strong> — nakupuj pohodlně přímo na místě bez příplatku za kamennou prodejnu.</p>
+        <div style="border-radius:20px; overflow:hidden; position:relative; min-height:320px">
+          <img src="https://extrifit-gym.cz/pardubice/wp-content/uploads/2016/05/prodej-doplnku-extrifit-2.jpg" alt="Prodej doplňků Extrifit" style="width:100%; height:100%; object-fit:cover; position:absolute; inset:0">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(6,7,9,0.85) 0%, rgba(6,7,9,0.3) 60%, transparent 100%)"></div>
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:28px">
+            <div class="cond font-black text-2xl uppercase mb-2">Bar & prodejna v gymu</div>
+            <p class="text-sm" style="color:rgba(232,236,245,0.8)">Vše za internetové ceny. Sortiment Extrifit přímo v gymu.</p>
           </div>
         </div>
       </div>
@@ -760,11 +773,11 @@
             </div>
             <div>
               <div class="text-xs tracking-widest uppercase mb-1" style="color:var(--muted)">Telefon</div>
-              <a href="tel:+420733190696" style="color:var(--green)">+420 733 190 696</a>
+              <a href="tel:+420733190696" style="color:var(--orange)">+420 733 190 696</a>
             </div>
             <div>
               <div class="text-xs tracking-widest uppercase mb-1" style="color:var(--muted)">E-mail</div>
-              <a href="mailto:info@extrifit-gym.cz" style="color:var(--green)">info@extrifit-gym.cz</a>
+              <a href="mailto:info@extrifit-gym.cz" style="color:var(--orange)">info@extrifit-gym.cz</a>
             </div>
             <div>
               <div class="text-xs tracking-widest uppercase mb-2" style="color:var(--muted)">Otevírací doba</div>
@@ -784,7 +797,7 @@
           <div style="background:var(--dark-3); border:1px solid rgba(255,255,255,0.05); border-radius:16px; padding:20px">
             <div class="text-xs tracking-widest uppercase mb-3" style="color:var(--muted)">Zodpovědná osoba</div>
             <div class="cond font-bold text-lg uppercase">Vojtěch Koritenský, DiS.</div>
-            <div class="text-xs mb-2" style="color:var(--green)">Majitel, manažer · Tvář EXTRIFIT</div>
+            <div class="text-xs mb-2" style="color:var(--orange)">Majitel, manažer · Tvář EXTRIFIT</div>
             <p class="text-xs" style="color:var(--muted-2)">Uznávaný profesionální kulturista, fitness trenér a hlavní tvář značky EXTRIFIT. Majitel EXTRIFIT GYMu.</p>
           </div>
         </div>
@@ -827,7 +840,7 @@
               <label for="gdpr" class="text-xs" style="color:var(--muted)">Souhlasím se zpracováním osobních údajů</label>
             </div>
             <button onclick="sendContact()" class="btn-green w-full py-4 rounded-lg text-base">Odeslat zprávu →</button>
-            <div id="contact-success" class="hidden text-center py-3" style="background:rgba(22,201,80,0.08); border:1px solid rgba(22,201,80,0.2); border-radius:10px; color:var(--green)">
+            <div id="contact-success" class="hidden text-center py-3" style="background:rgba(242,88,32,0.08); border:1px solid rgba(242,88,32,0.2); border-radius:10px; color:var(--orange)">
               ✅ Zpráva odeslána! Ozveme se do 1 pracovního dne.
             </div>
           </div>
@@ -848,14 +861,14 @@
   <footer style="background:var(--dark-2); border-top:1px solid rgba(255,255,255,0.04); padding:2rem 1rem">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
       <div class="cond font-black text-xl">
-        <span style="color:var(--green)">EXTRIFIT</span>
+        <span style="color:var(--orange)">EXTRIFIT</span>
         <span> GYM</span>
         <span class="text-sm font-normal tracking-widest uppercase ml-2" style="color:var(--muted)">Pardubice</span>
       </div>
       <div class="text-xs text-center" style="color:var(--muted)">
         © 2026 EXTRIFIT GYM CZ s.r.o. · Poděbradská 297, 530 09 Pardubice · IČ: 02048744
       </div>
-      <a href="#cenik" style="color:var(--green)" class="text-sm font-medium hover:underline">Koupit permanentku →</a>
+      <a href="#cenik" style="color:var(--orange)" class="text-sm font-medium hover:underline">Koupit permanentku →</a>
     </div>
   </footer>
 
