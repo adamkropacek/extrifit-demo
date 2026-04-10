@@ -47,30 +47,20 @@
         linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
       background-size: 50px 50px;
     }
-    .hero-slash {
+    .hero-right {
       position: absolute; right: 0; top: 0; bottom: 0;
-      width: 46%;
+      width: 42%;
       background: linear-gradient(160deg, var(--dark-3) 0%, var(--dark-4) 100%);
       clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
-    }
-    .hero-slash-inner {
-      position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 16px;
-      padding: 40px 60px;
+      padding: 80px 50px 40px 80px;
     }
-    .equip-pill {
-      background: rgba(22,201,80,0.08);
-      border: 1px solid rgba(22,201,80,0.15);
-      border-radius: 6px;
-      padding: 8px 14px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--green);
-      white-space: nowrap;
+    .hero-info-card {
+      background: rgba(22,201,80,0.05);
+      border: 1px solid rgba(22,201,80,0.12);
+      border-radius: 16px;
+      padding: 28px;
+      width: 100%;
     }
 
     /* Buttons */
@@ -231,12 +221,6 @@
     .hours-row { border-bottom: 1px solid rgba(255,255,255,0.04); }
     .hours-row:last-child { border-bottom: none; }
 
-    /* Brands strip */
-    .brand-strip {
-      background: var(--dark-3);
-      border-top: 1px solid rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
 
     /* Animations */
     @keyframes fadeUp {
@@ -250,7 +234,7 @@
     .d4 { animation-delay: 0.55s; opacity: 0; }
 
     @media (max-width: 768px) {
-      .hero-slash { display: none; }
+      .hero-right { display: none; }
     }
 
     /* Scrollbar */
@@ -292,15 +276,38 @@
   <section class="hero" id="uvod">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
-    <div class="hero-slash">
-      <div class="hero-slash-inner">
-        <div class="equip-pill">HOIST Fitness</div>
-        <div class="equip-pill">Arsenal Strength</div>
-        <div class="equip-pill">Eleiko</div>
-        <div class="equip-pill">Rogue</div>
-        <div class="equip-pill">Technogym</div>
-        <div class="equip-pill">Freemotion</div>
-        <div class="equip-pill">Gym Gun</div>
+    <div class="hero-right">
+      <div class="hero-info-card">
+        <div class="text-xs tracking-widest uppercase mb-5" style="color:var(--green); font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.18em">Otevírací doba</div>
+        <div style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:14px; margin-bottom:14px">
+          <div class="text-xs mb-1" style="color:var(--muted)">Pondělí – Pátek</div>
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; color:var(--light)">6:00 – 22:00</div>
+        </div>
+        <div style="border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:14px; margin-bottom:20px">
+          <div class="text-xs mb-1" style="color:var(--muted)">Sobota – Neděle</div>
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:26px; font-weight:900; color:var(--light)">7:00 – 22:00</div>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-sm">
+            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--muted-2)">1 460 m² na 2 podlažích</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--muted-2)">200+ strojů světových značek</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--muted-2)">Dochlazovací vzduchotechnika</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span style="color:var(--green); font-size:18px">✓</span>
+            <span style="color:var(--muted-2)">MultiSport, Sodexo, Benefit Plus</span>
+          </div>
+        </div>
+        <a href="tel:+420733190696" class="flex items-center gap-2 mt-6 text-sm font-medium" style="color:var(--green)">
+          📞 +420 733 190 696
+        </a>
       </div>
     </div>
 
@@ -349,18 +356,6 @@
     </div>
   </section>
 
-  <!-- BRAND STRIP -->
-  <div class="brand-strip py-4">
-    <div class="max-w-6xl mx-auto px-4 md:px-6 flex items-center gap-3 flex-wrap justify-center">
-      <span class="text-xs tracking-widest uppercase" style="color:var(--muted)">Oficiální centrum:</span>
-      <span class="equip-pill">HOIST Fitness</span>
-      <span class="equip-pill">Arsenal Strength</span>
-      <span class="equip-pill">Eleiko</span>
-      <span class="equip-pill">Rogue</span>
-      <span class="equip-pill">Technogym</span>
-      <span class="equip-pill">Freemotion</span>
-    </div>
-  </div>
 
   <!-- O GYMU -->
   <section id="o-gymu" style="background:var(--dark); padding:5rem 1rem">
